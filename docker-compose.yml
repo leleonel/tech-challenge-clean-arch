@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: seu_banco_de_dados
+      MYSQL_USER: seu_usuario
+      MYSQL_PASSWORD: sua_senha
+      MYSQL_ROOT_PASSWORD: sua_senha_root
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  app:
+    build: .
+    container_name: spring-boot-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/seu_banco_de_dados
+      SPRING_DATASOURCE_USERNAME: seu_usuario
+      SPRING_DATASOURCE_PASSWORD: sua_senha
+    ports:
+      - "8082:8080"  # Mapeando a porta 8082 na máquina host para a porta 8080 no container
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
