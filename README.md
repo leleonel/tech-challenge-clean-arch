@@ -85,7 +85,7 @@ mvn clean test
 ```
 
 ## Executando com Docker
-# Construir e Executar os Containers
+### Construir e Executar os Containers
 Para construir e executar os containers Docker, use o Docker Compose:
 
 ```sh
@@ -97,6 +97,66 @@ Para parar os containers, use o comando:
 ```sh
 docker-compose down
 ```
+
+
+## Executando com Kubernetes
+### Para executar a aplicação no Kubernetes usando Docker Desktop, siga os passos abaixo:
+
+#### Requisitos
+- kubectl
+- Docker Desktop com Kubernetes habilitado
+
+#### Habilitar Kubernetes no Docker Desktop
+- Abra o Docker Desktop.
+- Vá até as configurações (ícone de engrenagem).
+- No menu à esquerda, selecione "Kubernetes".
+- Marque a opção "Enable Kubernetes".
+- Clique em "Apply & Restart".
+
+
+#### Deploy no Kubernetes
+
+Certifique-se de que o Kubernetes está rodando no Docker Desktop. Você pode verificar isso com o seguinte comando:
+
+```sh
+kubectl cluster-info
+```
+
+Aplique os manifests do Kubernetes:
+
+```sh
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/hpa.yaml
+```
+
+#### Verificar os Recursos
+
+Verifique se os recursos foram criados corretamente:
+
+```sh
+kubectl get deployments
+kubectl get services
+kubectl get hpa
+```
+#### Acessar a Aplicação
+Obtenha o URL para acessar a aplicação:
+
+Exporte as portas para o host local usando o comando abaixo, onde 30001 é a porta configurada no serviço:
+
+```sh
+kubectl port-forward service/tech-challenge-clean-arch-service 8080:30001
+
+```
+Agora você pode acessar a aplicação em http://localhost:8080.
+
+## Mantendo a Segunda Aplicação (Webhook) Ativa
+Para garantir o funcionamento completo da solução, é necessário manter a segunda aplicação que simula o webhook ativa,
+github: 
+
+Certifique-se de que a segunda aplicação que simula o webhook está rodando. Esta aplicação é um serviço externo e não faz parte do cluster Kubernetes.
+Verifique a documentação da segunda aplicação para obter as instruções específicas de execução.
+
 
 ## Contribuição
 Se você deseja contribuir para este projeto, por favor siga os passos abaixo:
