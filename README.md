@@ -139,6 +139,26 @@ kubectl get deployments
 kubectl get services
 kubectl get hpa
 ```
+
+# Executando a Aplicação Localmente no Kubernetes no Google Cloud
+
+## Pré-requisitos
+
+- Conta no Google Cloud Platform (GCP)
+- gcloud CLI instalado e configurado
+- kubectl instalado
+- Docker instalado
+- Acesso ao projeto tech-challenge-clean-arch no GitHub
+
+## Passo a Passo
+
+### 1. Configuração Inicial
+
+#### 1.1. Autentique-se no Google Cloud
+
+```bash
+gcloud auth login
+
 #### Acessar a Aplicação
 Obtenha o URL para acessar a aplicação:
 
@@ -148,7 +168,64 @@ Exporte as portas para o host local usando o comando abaixo, onde 30001 é a por
 kubectl port-forward service/tech-challenge-clean-arch-service 8080:30001
 
 ```
-Agora você pode acessar a aplicação em http://localhost:8080.
+
+#### 1.2. Configure o projeto
+Substitua your-project-id pelo ID do seu projeto no Google Cloud.
+
+```bash
+gcloud config set project your-project-id
+```
+
+#### 1.3. Configure a região e zona
+Substitua us-west1-a pela região e zona do seu cluster.
+
+```bash
+gcloud config set compute/zone us-west1-a
+```
+
+#### 2. Criar um Cluster Kubernetes
+   ```bash
+   gcloud container clusters create tech-challenge-cluster --num-nodes=3
+   ```
+#### 2.2. Conecte-se ao cluster
+  ```bash
+   gcloud container clusters get-credentials tech-challenge-cluster
+   ```
+#### 3. Configurar a Aplicação
+   3.1. Construa a imagem Docker da aplicação
+   Navegue até o diretório da aplicação e construa a imagem Docker.
+
+```bash
+docker build -t gcr.io/your-project-id/tech-challenge-app:v1 .
+```
+#### 3.2. Envie a imagem para o Container Registry
+```bash
+docker push gcr.io/your-project-id/tech-challenge-app:v1
+```
+#### 4. Deploy no Kubernetes
+   4.1. Crie os arquivos de manifesto Kubernetes
+   Crie um arquivo deployment.yaml e service.yaml com a configuração do seu deployment e service e faça o deployment
+   detas configurações: 
+    
+   ```bash
+   kubectl apply -f deployment.yaml
+   kubectl apply -f service.yaml
+   kubectl apply -f hpa.yaml
+   kubectl apply -f mysql-deployment.yaml
+   ```
+
+#### 7. Monitorar o Cluster
+   Use os comandos abaixo para monitorar o cluster e os recursos:
+
+```bash
+kubectl get pods
+kubectl get deployments
+kubectl get services
+kubectl top pods
+kubectl top nodes
+```
+
+Agora você pode acessar a aplicação através do IP indicado pelo Kubernets.
 
 ## Mantendo a Segunda Aplicação (Webhook) Ativa
 Para garantir o funcionamento completo da solução, é necessário manter a segunda aplicação que simula o webhook ativa,
