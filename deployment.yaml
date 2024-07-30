@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tech-challenge-clean-arch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tech-challenge-clean-arch
+  template:
+    metadata:
+      labels:
+        app: tech-challenge-clean-arch
+    spec:
+      containers:
+        - name: tech-challenge-clean-arch
+          image: gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/seu_banco_de_dados
