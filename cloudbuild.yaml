@@ -1,0 +1,30 @@
+steps:
+  - name: 'maven:3.8.1-openjdk-17'
+    entrypoint: 'mvn'
+    args: ['clean', 'install']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-tech-challenge'
+    args: ['apply', '-f', 'k8s/deployment.yaml']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-tech-challenge'
+    args: ['set', 'image', 'deployment/tech-challenge-clean-arch', 'tech-challenge-clean-arch=gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-tech-challenge'
+    args: ['apply', '-f', 'k8s/service.yaml']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-tech-challenge'
+    args: ['apply', '-f', 'k8s/hpa.yaml']
+images:
+  - 'gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest'
