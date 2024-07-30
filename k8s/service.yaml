@@ -7,10 +7,10 @@ spec:
     app: tech-challenge-clean-arch
   ports:
     - protocol: TCP
-      port: 80          # Porta exposta pelo serviço
-      targetPort: 8080  # Porta no container
-      nodePort: 30001   # Porta do nó (deve estar entre 30000 e 32767)
-  type: NodePort
+      port: 80
+      targetPort: 8081
+  type: LoadBalancer
+
 ---
 apiVersion: v1
 kind: Service
@@ -23,4 +23,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
-  type: ClusterIP   # Opcional, padrão é ClusterIP
+  type: ClusterIP

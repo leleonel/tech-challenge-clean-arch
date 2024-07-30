@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: tech-challenge-clean-arch
-          image: leonlet/tech-challenge-clean-arch:latest
+          image: gcr.io/tech-challenge-clean-arch/tech-challenge-clean-arch:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://mysql:3306/seu_banco_de_dados
+              value: jdbc:mysql://mysql-service:3306/seu_banco_de_dados
