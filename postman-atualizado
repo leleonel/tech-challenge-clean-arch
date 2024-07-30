@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "262d6b2b-c990-4e53-a101-189d40ce6336",
+		"name": "Pós Graduação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3438067",
+		"_collection_link": "https://gold-zodiac-212131.postman.co/workspace/My-Workspace~07e91193-3132-437e-8fc1-7ea07811a9c3/collection/3438067-262d6b2b-c990-4e53-a101-189d40ce6336?source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Cadastra Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"12345678912\",\r\n    \"nome\": \"Matt\",\r\n    \"email\": \"le@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/clientes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Webhook Requisição",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\":\"http://localhost:8081/validacao_pagamento_webhook\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/send/registra_webhook",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"send",
+						"registra_webhook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Webhook Validação Pagamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"qrcode\":\"xpto\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/send/validacao_pagamento",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"send",
+						"validacao_pagamento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastra Produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoria\": \"LANCHE\",\r\n    \"nome\": \"X-Bacon\",\r\n    \"descricao\": \"Hamburguer de carne, queijo, bacon, alface e maionese.\",\r\n    \"preco\": 23.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produtos/cadastrar_produto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"cadastrar_produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastra Pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n{\r\n    \"categoria\": \"SOBREMESA\",\r\n    \"nome\": \"Sorvete\",\r\n    \"descricao\": \"Sorvete de Baunilha com Limão.\",\r\n    \"preco\": 7.89\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pedidos/cadastrar_pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"cadastrar_pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edita Status Pedido",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pedidos/atualizar_pedidos?id=3&status=FINALIZADO",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"atualizar_pedidos"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						},
+						{
+							"key": "status",
+							"value": "FINALIZADO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Status Pagamento",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pa",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Cliente",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "nome",
+						"value": "Letícia",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/clientes/buscar_cliente?cpf=12345678912",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"buscar_cliente"
+					],
+					"query": [
+						{
+							"key": "cpf",
+							"value": "12345678912"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Pedido Todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "nome",
+						"value": "Letícia",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pedidos/buscar_pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"buscar_pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gera Link Pagamento",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "nome",
+						"value": "Letícia",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pagamento/gerar_pagamento?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pagamento",
+						"gerar_pagamento"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Produto por Categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produtos/lanche/buscar_produto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"lanche",
+						"buscar_produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta Produto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produtos/X-Bacon/remover_produto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"X-Bacon",
+						"remover_produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edita Produto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoria\": \"LANCHE\",\r\n    \"nome\": \"X-Bacon\",\r\n    \"descricao\": \"Hamburguer de carne, queijo, bacon, alface e maionese e PIMENTA.\",\r\n    \"preco\": 18.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produtos/atualizar_produto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"atualizar_produto"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
